@@ -58,6 +58,22 @@
       ```
       - persist() 호출시 시퀀스를 사용해 식별자를 조회한 다음, 엔티티에 할당하고 영속성 컨텍스트에 저장한다.
     - TABLE : 키 생성 테이블을 사용
+      ```java
+      @TableGenerator(                                    
+        name = "MEMBER_SEQ_GENERATOR",                    //테이블 키 생성기
+        table = "MY_SEQUENCES",                           //테이블 생성 이름
+        pkColumnValue = "MEMBER_SEQ", allocationSize = 1  //해당 테이블 전략 테이블의 pk과 할당 크기
+      )
+      public class Product{
+        @Id
+        @GeneratedValue(strategy = GenerationType.TABLE, 
+          generator = "BOARD_SEQ_GENERATOR")
+        private Long id;
+        ...
+      }
+      ```
+      - 시퀀스 전략과 동작 방식은 같다.(시퀀스 대신 테이블만 쓰는 것 뿐)
+      - SEQUENCE 전략보다 한번 더 DB와 통신한다 (왜?? > 테이블 전략이므로 테이블의 pk를 +1 해야하기 때문에!)
     - AUTO : DB방언에 맞게 자동으로 설정한다.
 
 ## @Column
