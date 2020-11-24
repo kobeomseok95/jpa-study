@@ -8,3 +8,5 @@ JPA Study
 
 ###   3장
 - [영속성 관리](https://github.com/kobeomseok95/jpa-study/blob/main/03/study.md)
+###   4장
+- [엔티티 매핑](https://github.com/kobeomseok95/jpa-study/blob/main/04/study.md)
