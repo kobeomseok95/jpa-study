@@ -1,1 +1,1 @@
-# jpa-study
+# JPA Study
