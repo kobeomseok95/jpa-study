@@ -12,3 +12,5 @@ JPA Study
 - [엔티티 매핑](https://github.com/kobeomseok95/jpa-study/blob/main/04/study.md)
 ### 5장
 - [연관관계 매핑 기초](https://github.com/kobeomseok95/jpa-study/blob/main/05/study.md)
+### 6장
+- [다양한 연관관계 매핑](https://github.com/kobeomseok95/jpa-study/blob/main/06/study.md)
