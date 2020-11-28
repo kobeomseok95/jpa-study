@@ -16,3 +16,5 @@ JPA Study
 - [다양한 연관관계 매핑](https://github.com/kobeomseok95/jpa-study/blob/main/06/study.md)
 ### 7장
 - [고급 매핑](https://github.com/kobeomseok95/jpa-study/blob/main/07/study.md)
+### 8장
+- [프록시와 연관관계 관리](https://github.com/kobeomseok95/jpa-study/blob/main/08/study.md)
