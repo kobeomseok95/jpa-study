@@ -18,3 +18,5 @@ JPA Study
 - [고급 매핑](https://github.com/kobeomseok95/jpa-study/blob/main/07/study.md)
 ### 8장
 - [프록시와 연관관계 관리](https://github.com/kobeomseok95/jpa-study/blob/main/08/study.md)
+### 9장
+- [값 타입](https://github.com/kobeomseok95/jpa-study/blob/main/09/study.md)
