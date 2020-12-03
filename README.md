@@ -20,3 +20,5 @@ JPA Study
 - [프록시와 연관관계 관리](https://github.com/kobeomseok95/jpa-study/blob/main/08/study.md)
 ### 9장
 - [값 타입](https://github.com/kobeomseok95/jpa-study/blob/main/09/study.md)
+### 10장
+- [객체지향 쿼리 언어](https://github.com/kobeomseok95/jpa-study/blob/main/10/study.md)
