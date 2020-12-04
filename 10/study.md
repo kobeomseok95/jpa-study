@@ -214,3 +214,35 @@ List<Product> products = em.createNamedQuery("Product.findByProductName", Produc
   .setParameter("name", "상품명")
   .getResultList();
 ```
+
+### 벌크 연산
+- 한번에 여러 건의 데이터를 update, delete할 경우 사용(한건씩 update, delete 쿼리가 나가면 매우 비효율적)
+```java
+// 모든 상품의 가격을 10% 인상하자
+
+String query = "update Product p set p.price = p.price * 1.1"
+int result = em.createQuery(query).executeUpdate();
+
+// 재고가 없는 상품을 삭제하자
+
+String query = "delete from Product p where p.stockQuantity = 0"
+int result = em.createQuery(query).executeUpdate();
+```
+
+- **주의사항**
+  - 영속성 컨텍스트를 무시하고 DB에 직접 쿼리한다!
+  ```java
+    Product findProduct = em.createQuery("select p from Product p where p.name = :name", Product.class)
+                            .setParameter("name", "상품1")
+                            .getSingleResult();
+    // findProduct의 price : 1000원 이라고 가정
+    
+    //벌크 연산 수행(모든 상품 가격 10% 인상)
+    em.createQuery("update Product p set p.price = p.price * 1.1")
+      .executeUpdate();
+    
+    System.out.println(findProduct.getPrice()); // 벌크연산이 적용되지 않은 1000원이 여전히 나온다!
+    // findProduct가 여전히 영속성 컨텍스트에 남아있고, 벌크연산은 영속성 컨텍스트를 무시하기 때문!
+  ```
+  - 반드시 벌크연산을 실행 후 영속성 컨텍스트를 초기화해주자
+  
