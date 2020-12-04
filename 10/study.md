@@ -124,7 +124,93 @@ select m from Member m left [outer] join m.team t
   - 왜 JOIN ON절은 외부 조인에서만 사용하는가?
     - 내부 조인일 경우 외래키 값이 NULL인 경우는 제외하기 때문에 내부 조인에서 JOIN ON절을 사용할 경우 어차피 세타조인과 결과가 같다.
 
+### Fetch Join
+- JPQL에서 성능 최적화를 위해 제공하는 기능
+  #### 1. Entity Fetch Join
+    - 해당 페치 조인을 통해 조회하는 엔티티와 연관된 엔티티도 함께 조회한다.
+    ```java
+      select m from Member m join fetch m.team
+    ```
+    - 만약 위의 예제 코드에서 지연로딩을 설정했다고 가정하면, 연관된 팀 엔티티는 프록시 객체!
+    - 하지만 fetch join을 통해 프록시가 아닌 실제 객체를 가져왔으므로 영속성 컨텍스트에서도 관리된다.
+  #### 2. Collection Fetch Join
+    - 일대다 관계의 컬렉션을 조회할 경우 '다'에 해당하는 데이터의 크기에 영향을 받아 결과가 증가하여 '일'에 해당하는 데이터가 중복하여 나오게 된다.
+    ```java
+      select t from Team t join fetch t.members
+    ```
+    - DISTINCT 키워드를 이용하여 중복된 '일'에 해당하는 데이터들을 제거하여 결과를 얻을 수 있다.
+  
+  #### Join VS Fetch Join
+    - **JPQL은 결과 반환시 연관관계를 신경쓰지 않는다!!!**
+    ```java
+      1. select t from Team t join t.members
+      2. select t from Team t join fetch t.members
+    ```
+    - 1. 해당 JPQL에서 members를 전혀 조회하지 않고 select 절에 프로젝션 한 Team만 반환한다.
+      - 만약 지연로딩으로 설정할 경우 해당 members는 컬렉션 래퍼(다대일의 경우 프록시)로 반환한다.
+      - 즉시로딩으로 설정할 경우 해당 members를 찾기 위해 쿼리를 한번 더 실행한다.(N+1 문제)
+    - 2. Fetch Join을 사용하여 연관된 엔티티까지 함께 조회했다.
+  
+  #### 한계
+    - 글로벌 로딩 전략(@XXXToMany(fetch = FetchType.LAZY))보다 Fetch Join이 우선권을 가진다.
+    - 가급적 글로벌 로딩 전략은 지연로딩으로 설정하고 최적화가 필요할 때 Fetch Join 전략을 적용하자!
+    - Fetch Join은 별칭을 줄 수 없다.
+    - 둘 이상의 컬렉션을 Fetch할 수 없다.
+    - **페이징 API를 사용할 수 없다.**
+      - 페이징을 처리하기 전의 모든 데이터가 메모리에 들어가고 해당 페이징을 처리하기 때문에 경고 발생!
+      
+  #### 그럼 언제 써야하나?
+    - 객체 그래프를 유지할 때 사용하면 효과적!
+    
+### 경로 표현식
+- 상태 필드 : 단순히 값을 저장하기 위한 필드
+- 연관 필드 : 연관관계를 위한 필드, 임베디드 타입 포함
+  - 단일 값 연관필드 : 대상이 엔티티(@ManyToOne, @OneToOne)
+  - 컬렉션 값 연관필드 : 대상이 컬렉션(@OneToMany~~, @ManyToMany~~)
+- 특징
+  - 상태 필드 : 경로 탐색의 끝.
+  - 단일 값 연관 필드 : 묵시적 내부 조인 발생, 계속 탐색 가능
+  - 컬렉션 값 연관 필드 : 묵시적 내부 조인 발생, 계속 탐색 불가
+    - 컬렉션을 탐색하고 싶은 경우에는 명시적으로 join으로 컬렉션 객체를 명시하고 별칭을 줘서 사용하자
+- 주의사항
+  - **항상 내부조인이다.**
+  - **묵시적 내부 조인이 일어난다는건 From절에 영향을 미친다. 성능에 이슈가 발생할 경우 찾기도 어려우므로 명시적 조인을 꼭 사용하자.**
 
+### 다형성 쿼리
+- JPQL로 부모 엔티티를 조회하면 그 자식 엔티티도 함께 조회된다.(상속)
+  #### Type, Treat
+  ```java
+    select i from Item i where type(i) IN (Book, Movie) // Item을 상속받은 Book, Movie 타입의 Item만 조회한다.
+    
+    select i from Item i where treat(i as Book).author = '고범석'; // Book 타입의 author 필드 값이 '고범석'의 경우만 조회
+  ```
+### 엔티티 직접 적용
+- 객체 인스턴스는 참조 값으로, 테이블 로우는 기본키 값으로 식별한다.
+```java
+  select m from Member m where m == :member // 실제 쿼리는 where m.id = ? 으로 나간다.
 
+  select p from Product p where p.category = :category  // (Category : Product) = (1 : 多)의 경우에서 외래키도 where category.id = ? 적용
+```
 
+### Named Query
+- 동적 쿼리 : em.createQuery
+- 정적 쿼리 : 미리 정의한 쿼리에 이름을 부여해 필요할 때 사용할 수 있는 쿼리(Named Query)
+- 애플리케이션 로딩 시점에 JPQL 문법을 체크하고 미리 파싱하여 오류를 빨리 체크할 수 있고 성능상의 이점도 있다.
+```java
+@Entity
+@NamedQueries({
+  @NamedQuery(
+  name = "Product.findByProductName",
+  query = "select p from Product p where p.name = :name"),
+  @NamedQuery(
+  name = "Product.findByProductPrice",
+  query = "select p from Product p where p.price = :price")
+})
+public class Product{...}
 
+...
+
+List<Product> products = em.createNamedQuery("Product.findByProductName", Product.class)
+  .setParameter("name", "상품명")
+  .getResultList();
+```
