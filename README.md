@@ -22,3 +22,8 @@ JPA Study
 - [값 타입](https://github.com/kobeomseok95/jpa-study/blob/main/Jpa/09/study.md)
 ### 10장
 - [객체지향 쿼리 언어](https://github.com/kobeomseok95/jpa-study/blob/main/Jpa/10/study.md)
+
+<hr>
+
+Spring Data Jpa
+=============================
