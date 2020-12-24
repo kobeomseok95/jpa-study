@@ -28,3 +28,5 @@ JPA Study
 
 Spring Data Jpa
 =============================
+### 1장
+- [스프링 데이터 JPA란?](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/01/study.md)
