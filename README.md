@@ -30,3 +30,5 @@ Spring Data Jpa
 =============================
 ### 1장
 - [스프링 데이터 JPA란?](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/01/study.md)
+### 2장
+- [쿼리 메서드 기능](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/02/study.md)
