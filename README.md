@@ -35,4 +35,4 @@ Spring Data Jpa
 ### 3장
 - [확장 기능](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/03/study.md)
 ### 4장
-- [스프링 데이터 JPA ](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/04/study.md)
+- [스프링 데이터 JPA 분석](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/04/study.md)
