@@ -46,7 +46,7 @@ save 메서드를 보자
       @Id
       private String id;
   
-      @CreatedDate    // 4 persist 되기 전에 호출된다!
+      @CreatedDate    // 4
       private LocalDateTime createdDate;
   
       public Item(String id) {
