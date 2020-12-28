@@ -30,7 +30,9 @@ save 메서드를 보자
 - id가 null(객체의 경우)이거나 0(primitive type의 경우)일 경우 persist
 - id가 존재할 경우 merge
 
-**주의사항**
+**이슈와 주의사항**
+
+@GeneratedValue가 식별자 생성 전략이라면 save() 시점에 식별자가 없으므로 persist가 정상적으로 동작한다. 하지만 생성전략을 @Id만 사용하고 직접 할당할 경우 이미 식별자 값이 존재하기 때문에 merge가 실행되며 select 쿼리 및 DB에 값이 없을 경우 새로운 엔티티로 인지하기 때문에 매우 비효율적이다.
 
 - 해당 엔티티의 id에 @GeneratedValue를 쓰지 않을 수 있다. 이럴 때는?
 
