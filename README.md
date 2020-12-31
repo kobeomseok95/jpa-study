@@ -6,6 +6,7 @@ JPA Study
 - [자바 ORM 표준 JPA 프로그래밍 - 기본편(인프런)](https://www.inflearn.com/course/ORM-JPA-Basic/dashboard)
 - [자바 ORM 표준 JPA 프로그래밍(책)](https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=1&acr=1&acq=%EC%9E%90%EB%B0%94+ORM&qdt=0&ie=utf8&query=%EC%9E%90%EB%B0%94+ORM+%ED%91%9C%EC%A4%80+JPA+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
 - [실전! Spring Data Jpa(인프런)](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-JPA-%EC%8B%A4%EC%A0%84/dashboard)
+- [실전! Querydsl(인프런)](https://www.inflearn.com/course/Querydsl-%EC%8B%A4%EC%A0%84/dashboard)
 
 ### 3장
 - [영속성 관리](https://github.com/kobeomseok95/jpa-study/blob/main/Jpa/03/study.md)
