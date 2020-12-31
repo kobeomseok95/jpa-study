@@ -37,3 +37,10 @@ Spring Data Jpa
 - [확장 기능](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/03/study.md)
 ### 4장
 - [스프링 데이터 JPA 분석](https://github.com/kobeomseok95/jpa-study/blob/main/SpringDataJpa/04/study.md)
+
+<hr>
+
+Querydsl
+=============================
+### 1장
+- [Querydsl 시작하기](https://github.com/kobeomseok95/jpa-study/blob/main/Querydsl/01/study.md)
