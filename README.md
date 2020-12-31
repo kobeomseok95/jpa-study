@@ -44,3 +44,5 @@ Querydsl
 =============================
 ### 1장
 - [Querydsl 시작하기](https://github.com/kobeomseok95/jpa-study/blob/main/Querydsl/01/study.md)
+### 2장
+- [기본 문법](https://github.com/kobeomseok95/jpa-study/blob/main/Querydsl/02/study.md)
